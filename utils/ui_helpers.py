@@ -153,7 +153,7 @@ class ModernModal(ctk.CTkToplevel):
 
 class SettingsModal(ctk.CTkToplevel):
     """Settings modal for configuring ComfyUI connection and paths."""
-    def __init__(self, parent):
+    def __init__(self, parent, on_save_callback=None):
         super().__init__(parent)
         self.title("Settings")
         self.configure(fg_color=COLORS['bg_main'])
@@ -172,6 +172,9 @@ class SettingsModal(ctk.CTkToplevel):
         self.set_comfyui_url = set_comfyui_url
         self.get_comfyui_input_folder = get_comfyui_input_folder
         self.set_comfyui_input_folder = set_comfyui_input_folder
+        
+        # Store callback to call after saving
+        self.on_save_callback = on_save_callback
         
         # Store original values for cancel
         self.original_url = get_comfyui_url()
@@ -410,6 +413,11 @@ class SettingsModal(ctk.CTkToplevel):
         
         from tkinter import messagebox
         messagebox.showinfo("Settings Saved", "Settings have been saved successfully.")
+        
+        # Call callback if provided to refresh UI
+        if self.on_save_callback:
+            self.on_save_callback()
+        
         self.destroy()
     
     def cancel(self):
