@@ -354,7 +354,14 @@ class ComfyBridgeApp(ctk.CTk):
     
     def show_settings(self):
         """Display Settings dialog."""
-        SettingsModal(self)
+        def refresh_connection_status():
+            """Refresh connection status in Bridge Context tab after settings save."""
+            if hasattr(self, 'node_tab'):
+                # Only refresh if in live mode
+                if self.node_tab.data_source_mode.get() == "live":
+                    self.node_tab.update_live_status()
+        
+        SettingsModal(self, on_save_callback=refresh_connection_status)
     
     def show_about(self):
         """Display About dialog with version and copyright information."""
