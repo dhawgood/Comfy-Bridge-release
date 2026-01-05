@@ -1,0 +1,29 @@
+W:b47ac923-459f-4e85-955d-ccf074726a8c|r:0|ln:26|ll:40|v:1.0.0
+NODES:
+N13:SamplerCustomAdvanced|842,215,355,106|I:noise:NOISE:37,guider:GUIDER:30,sampler:SAMPLER:19,sigmas:SIGMAS:20,latent_image:A:23|O:output:A:24;denoised_output:A:|W:|P:%7B%22Node%20name%20for%20S%26R%22%3A%22SamplerCustomAdvanced%22%7D
+N5:EmptyLatentImage|473,450,315,106|I:|O:LATENT:A:23|W:1024;1024;1|P:%7B%22Node%20name%20for%20S%26R%22%3A%22EmptyLatentImage%22%7D
+N22:BasicGuider|559,125,241,46|I:model:M:39,conditioning:C:40|O:GUIDER:GUIDER:30|W:|P:%7B%22Node%20name%20for%20S%26R%22%3A%22BasicGuider%22%7D
+N16:KSamplerSelect|470,749,315,58|I:|O:SAMPLER:SAMPLER:19|W:euler|P:%7B%22Node%20name%20for%20S%26R%22%3A%22KSamplerSelect%22%7D
+N8:VAEDecode|1248,192,210,46|I:samples:A:24,vae:V:12|O:IMAGE:G:9|W:|P:%7B%22Node%20name%20for%20S%26R%22%3A%22VAEDecode%22%7D
+N17:BasicScheduler|468,867,315,106|I:model:M:38|O:SIGMAS:SIGMAS:20|W:simple;20;1|P:%7B%22Node%20name%20for%20S%26R%22%3A%22BasicScheduler%22%7D
+N25:RandomNoise|470,611,315,82|I:|O:NOISE:NOISE:37|W:417264191485848;randomize|P:%7B%22Node%20name%20for%20S%26R%22%3A%22RandomNoise%22%7D
+N10:VAELoader|864,384,315,58|I:|O:VAE:V:12|W:flux/ae.sft|P:%7B%22Node%20name%20for%20S%26R%22%3A%22VAELoader%22%7D
+N9:SaveImage|1488,192,673,721|I:images:G:9|O:|W:1111|P:%7B%22Node%20name%20for%20S%26R%22%3A%22SaveImage%22%7D
+N6:CLIPTextEncode|375,221,422,164|I:clip:P:10|O:CONDITIONING:C:40|W:n old tv with the word "FLUX" on it, sitting in an abandoned workshop environment, created in Unreal Engine 5 with Octane render in the style of ArtStation.|P:%7B%22Node%20name%20for%20S%26R%22%3A%22CLIPTextEncode%22%7D
+N12:UNETLoader|-2,129,336,82|I:|O:MODEL:M:38,39|W:flux/flux1-schnell.sft;fp8_e4m3fn|P:%7B%22Node%20name%20for%20S%26R%22%3A%22UNETLoader%22%7D
+N26:Note|-246,131,210,257|I:|O:|W:When launching a RunComfy medium-sized machine, use the settings: checkpoint (flux1_schnell, fp8) and clip (t5_xxl_fp8), or it will run out of memory.%0A%0AWhen launching a RunComfy large-sized or above machine, you can choose a larger model and fp16 for better result: checkpoint (flux1_dev, default) and clip (t5_xxl_fp16).|C:#432,#653|P:%7B%22text%22%3A%22%22%7D
+N11:DualCLIPLoader|6,279,352,130|I:|O:CLIP:P:10|W:sd3m/t5xxl_fp8_e4m3fn.safetensors;sd3m/clip_l.safetensors;flux;default|P:%7B%22Node%20name%20for%20S%26R%22%3A%22DualCLIPLoader%22%7D
+LINKS:
+L9:8.0->9.0:G
+L10:11.0->6.0:P
+L12:10.0->8.1:V
+L19:16.0->13.2:SAMPLER
+L20:17.0->13.3:SIGMAS
+L23:5.0->13.4:A
+L24:13.0->8.0:A
+L30:22.0->13.1:GUIDER
+L37:25.0->13.0:NOISE
+L38:12.0->17.0:M
+L39:12.0->22.0:M
+L40:6.0->22.1:C
+M:{"groups":[],"config":{},"extra":{"ds":{"scale":1.6105100000000008,"offset":[335.5460782281936,27.821689642117917]},"frontendVersion":"1.23.4"}}
