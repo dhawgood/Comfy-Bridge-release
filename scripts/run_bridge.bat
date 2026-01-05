@@ -3,6 +3,11 @@ cd /d "%~dp0.."
 echo Working Directory: %CD%
 echo.
 
+REM --- NEW: Capture the python command passed from START.bat ---
+REM If run manually without arguments, default to 'python'
+set SYS_PYTHON=%~1
+if "%SYS_PYTHON%"=="" set SYS_PYTHON=python
+
 REM 1. Check if venv exists and is valid
 if exist "venv\Scripts\python.exe" (
     echo Using existing virtual environment...
@@ -19,11 +24,14 @@ if exist "venv\Scripts\python.exe" (
 )
 
 :create_venv
-REM 2. Create new venv only if it doesn't exist or is broken
-echo Creating virtual environment...
-python -m venv venv
+REM 2. Create new venv using the SMART detected python
+echo Creating virtual environment using: %SYS_PYTHON%
+
+REM --- CRITICAL FIX: Use the passed command, not hardcoded 'python' ---
+%SYS_PYTHON% -m venv venv
 if errorlevel 1 (
     echo [ERROR] Failed to create venv!
+    echo Command used: %SYS_PYTHON% -m venv venv
     pause
     exit /b 1
 )
