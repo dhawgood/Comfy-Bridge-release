@@ -269,14 +269,6 @@ class PlannerTab(ctk.CTkFrame):
         self.inspect_btn.pack(side="left", padx=(0, 5))
         ToolTip(self.inspect_btn, "View raw context payload")
         
-        # Copy Response button
-        self.copy_response_btn = ModernButton(
-            btn_row, text="Copy Response", command=self.copy_latest_response,
-            fg_color=COLORS['accent_1'], width=120, height=36
-        )
-        self.copy_response_btn.pack(side="left")
-        ToolTip(self.copy_response_btn, "Copy latest ChatGPT response to clipboard")
-        
         self.webview_frame = ctk.CTkFrame(self, fg_color=COLORS['bg_main'], corner_radius=8, border_width=1, border_color="#30363d")
         self.webview_frame.pack(fill="both", expand=True, padx=10)
         self.webview_frame.bind("<Configure>", self.on_planner_resize)
@@ -316,61 +308,7 @@ def inject_text_selection(window):
         `;
         document.head.appendChild(style);
         
-        // Global function to copy latest response
-        window.copyLatestResponse = function() {
-            try {
-                const selectors = [
-                    '[data-message-author-role="assistant"]',
-                    '[data-testid*="conversation-turn"]',
-                    '.group.w-full',
-                    '[class*="message"]',
-                    'div[class*="AssistantMessage"]'
-                ];
-                
-                let messages = [];
-                for (const selector of selectors) {
-                    try {
-                        const found = document.querySelectorAll(selector);
-                        if (found.length > 0) {
-                            messages = Array.from(found);
-                            break;
-                        }
-                    } catch (e) {}
-                }
-                
-                if (messages.length === 0) {
-                    return JSON.stringify({success: false, error: "No assistant messages found"});
-                }
-                
-                // Get the latest message (last one)
-                const latestMsg = messages[messages.length - 1];
-                const text = latestMsg.innerText || latestMsg.textContent || '';
-                
-                if (!text.trim()) {
-                    return JSON.stringify({success: false, error: "Latest message is empty"});
-                }
-                
-                // Copy to clipboard (async, but we'll trigger it)
-                navigator.clipboard.writeText(text).then(() => {
-                    console.log('Latest response copied to clipboard');
-                    // Show visual feedback
-                    const notification = document.createElement('div');
-                    notification.textContent = '✓ Response copied to clipboard!';
-                    notification.style.cssText = 'position:fixed;top:20px;right:20px;background:#3b82f6;color:white;padding:12px 20px;border-radius:8px;z-index:10000;font-weight:bold;box-shadow:0 4px 6px rgba(0,0,0,0.1);font-family:system-ui;';
-                    document.body.appendChild(notification);
-                    setTimeout(() => notification.remove(), 3000);
-                }).catch(err => {
-                    console.error('Failed to copy:', err);
-                });
-                
-                return JSON.stringify({success: true, length: text.length});
-            } catch (err) {
-                console.error('Error copying response:', err);
-                return JSON.stringify({success: false, error: String(err)});
-            }
-        };
-        
-        console.log('Text selection enabled and copyLatestResponse function added');
+        console.log('Text selection enabled');
     })();
     '''
     
@@ -379,37 +317,6 @@ def inject_text_selection(window):
     except Exception:
         pass  # Silently fail - text selection is optional
 
-def watch_copy_trigger(window):
-    \"\"\"Watch for copy trigger file and execute copy function.\"\"\"
-    import os
-    import json
-    trigger_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".copy_response_trigger_planner")
-    
-    while True:
-        try:
-            if os.path.exists(trigger_file):
-                # Execute copy function
-                try:
-                    result_str = window.evaluate_js("window.copyLatestResponse();")
-                    if result_str:
-                        try:
-                            result = json.loads(result_str)
-                            # Copy operation completed (success or failure handled silently)
-                        except:
-                            pass  # Silently handle parse errors
-                except Exception:
-                    pass  # Silently handle copy errors
-                
-                # Remove trigger file
-                try:
-                    os.remove(trigger_file)
-                except:
-                    pass
-        except:
-            pass
-        
-        time.sleep(0.5)  # Check every 500ms
-
 def on_closed(): 
     sys.exit(0)
 
@@ -417,11 +324,8 @@ if __name__ == "__main__":
     wv = webview.create_window("Bridge Planner", "https://chatgpt.com/g/g-69403492523c8191a3ef8444acb66351-comfy-bridger-planner", width=800, height=600, resizable=True)
     wv.events.closed += on_closed
     
-    # Inject text selection and copy function after window loads
+    # Inject text selection after window loads
     threading.Thread(target=lambda: inject_text_selection(wv), daemon=True).start()
-    
-    # Watch for copy trigger
-    threading.Thread(target=lambda: watch_copy_trigger(wv), daemon=True).start()
     
     webview.start()
 """
@@ -493,16 +397,6 @@ if __name__ == "__main__":
                 h = self.webview_frame.winfo_height()
             if self.webview_hwnd:
                 windll.user32.SetWindowPos(self.webview_hwnd, 0, 0, 0, w, h, 0x0004 | 0x0040)
-    
-    def copy_latest_response(self):
-        """Trigger copy of latest ChatGPT response."""
-        trigger_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".copy_response_trigger_planner")
-        try:
-            # Create trigger file
-            with open(trigger_file, 'w') as f:
-                f.write('')
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to trigger copy: {e}")
     
     def initialize_context(self):
         """Initialize the tab."""
