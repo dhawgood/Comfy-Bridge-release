@@ -654,7 +654,7 @@ class BridgeCompilerTab(ctk.CTkFrame):
                 self._update_status(self.node_defs_status_label, "Need JSON format", False)
                 
                 # Show modal with instructions and copy button
-                prompt_text = "I need to extract node definitions for Bridge Compiler. What are all the node types (class names) used in this workflow? Please provide them as a comma-separated list."
+                prompt_text = "I need to extract node definitions for Bridge Compiler. What are all the node types (class names) used in this workflow? Please provide them as a comma-separated list ONLY in a single code block."
                 
                 instructions = f"""Bridge Compiler requires JSON node definitions, not packs.
 
