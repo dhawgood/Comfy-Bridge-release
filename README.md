@@ -2,7 +2,7 @@
 
 # Comfy Bridge
 
-<a href="https://github.com/dhawgood/Comfy-Bridge_release/releases/latest/download/ComfyBridge_v1.2.1.zip">
+<a href="https://github.com/dhawgood/Comfy-Bridge-release/releases/latest/download/ComfyBridge_v1.2.1.zip">
   <img src="https://img.shields.io/badge/Download_For_Windows-Comfy_Bridge_v1.2.1-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Download Comfy Bridge" height="40"/>
 </a>
 
