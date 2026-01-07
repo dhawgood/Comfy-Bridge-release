@@ -55,7 +55,7 @@ WHAT THE PLANNER DOES
   - Required node definitions
   - Layout guidance
 - Ensures all referenced nodes actually exist in the user's library
-- Does not generate BridgeZip or Task Envelopes
+- Outputs a Compiler Brief in JSON
 
 HOW TO USE THIS TAB
 
@@ -63,12 +63,12 @@ HOW TO USE THIS TAB
 
 You may paste either:
 
-- Standard ComfyUI JSON
+- Standard ComfyUI JSON 
 - BridgeZip (recommended for token efficiency)
 
 Do not paste object_info.json — that file is too large and is handled separately via the extraction tools.
 
-2. Request Analysis or Planning
+2. Request Analysis, Planning, Design, or Creative assistance 
 
 Ask for broad or specific design tasks, for example:
 
@@ -77,7 +77,7 @@ Ask for broad or specific design tasks, for example:
 - "Show the best way to restructure this section."
 - "Design a clean approach for integrating a new feature."
 
-The Planner will interpret the intent and produce a clear, structured plan.
+The Planner will interpret the intent and produce a clear, structured plan.  
 
 3. Receive the Compiler Brief
 
@@ -115,7 +115,54 @@ NOTE
 
 This tab performs thinking, diagnosis, and design.
 
-It does not compile or execute changes—those responsibilities belong to the Compiler and Execute tabs."""
+It does not compile or execute changes—those responsibilities belong to the Compiler and Execute tabs.
+
+- - - - - 
+
+A SUGGESTED STARTING PROMPT:
+
+You are analysing a live ComfyUI workflow.
+
+First, analyse the current workflow and explain what it is doing:
+
+- what it generates
+
+- how the main stages relate to each other
+
+- where creative control and key decisions live
+
+Then, propose a single constrained plan to change the visual outcome
+
+while preserving the rest of the workflow.
+
+Structure the response using the following sections:
+
+WORKFLOW ANALYSIS
+=================
+
+Current behavior
+- Summarise how the workflow currently behaves.
+
+Key constraints
+- Identify what must remain unchanged.
+
+PROPOSED CONSTRAINED CHANGE
+===========================
+
+Goal
+- State the intended visual change.
+
+Single bounded area
+- Identify the specific area of the workflow affected.
+
+Why this is safe
+- Explain why the change preserves stability and structure.
+
+Be analytical and deliberate.
+
+Do not output executable or node-level instructions.
+
+Return the full response inside a single code block."""
 
 class ContextSettingsModal(ctk.CTkToplevel):
     """Modal to configure which data is included in context."""

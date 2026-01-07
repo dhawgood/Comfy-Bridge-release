@@ -42,12 +42,9 @@ INPUTS
 
 OUTPUT
 
-- Task Envelope JSON:
-  - plan_summary
-  - delete_node_ids
-  - add_nodes_str (BridgeZip fragment)
-  - add_groups
-- CURRENT WORKFLOW (BridgeZip echo, unchanged)
+A JSON object with:
+- TASK_ENVELOPE: Contains plan summary
+- CURRENT_WORKFLOW: The BridgeZip workflow string (unchanged)
 
 BEHAVIOUR
 

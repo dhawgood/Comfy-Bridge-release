@@ -28,7 +28,7 @@ DOC_NODES = """BRIDGE CONTEXT — NODE EXTRACTION
 
 PURPOSE
 
-This tab extracts all data needed for LLM-assisted workflow editing in the hybrid system (1 external AI agent + 2 deterministic Python components).
+This tab extracts all data needed for LLM-assisted workflow editing in Comfy-Bridge.
 
 It provides node definitions, model indexes, pack lists, and workflow components that Bridge Planner, Bridge Compiler, and Bridge Execute require to generate valid, accurate workflows for your specific ComfyUI installation.
 

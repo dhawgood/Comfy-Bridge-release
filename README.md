@@ -2,7 +2,7 @@
 
 # Comfy Bridge
 
-<a href="https://github.com/dhawgood/Comfy-Bridge-release/releases/latest/download/ComfyBridge_v1.2.1.zip">
+<a href="https://github.com/dhawgood/Comfy-Bridge/releases/latest/download/ComfyBridge_v1.2.1.zip">
   <img src="https://img.shields.io/badge/Download_For_Windows-Comfy_Bridge_v1.2.1-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Download Comfy Bridge" height="40"/>
 </a>
 
@@ -17,13 +17,13 @@
 
 ## Version 1.2.1
 
-A professional tool for compressing, analyzing, and modifying ComfyUI workflows using AI agents. Comfy Bridge introduces BridgeZip—a compressed, logic-preserving workflow format that significantly reduces size and enables precise collaboration with multiple LLMs.
+A professional tool for compressing, analyzing, and modifying ComfyUI workflows using AI agents. Comfy Bridge introduces Bridge Planner, a custom GPT responsible for reasoning about changes and translating creative intent into explicit, deterministic, compiler-ready plans. At its core, Bridge Planner asks a single question: given the current workflow state and the user's intent, can this be expressed as a valid, deterministic set of structural operations?
 
 ## Features
 
-- **BridgeZip Protocol**: Significantly compresses ComfyUI workflows while preserving all logic
 - **Hybrid System**: 1 external AI agent (ChatGPT) + 2 deterministic Python components
 - **Live API Integration**: Extract node definitions, packs, and models directly from ComfyUI
+- **BridgeZip Protocol**: Significantly compresses ComfyUI workflows while preserving all logic
 - **Workflow Conversion**: Seamless JSON ↔ BridgeZip conversion
 - **Context Management**: Intelligent extraction of workflow data for AI collaboration
 - **Modern UI**: Professional Nordic/Deep Slate aesthetic with intuitive interface
@@ -71,7 +71,7 @@ If you're developing or modifying the code:
 
 Comfy Bridge automatically creates a `config.json` file on first run. You can configure settings via the Settings button (⚙️) in the application header:
 
-- **ComfyUI URL/Port**: Set the ComfyUI API endpoint (default: http://127.0.0.1:8188)
+- **ComfyUI URL/Port**: Set the ComfyUI API endpoint such as http://127.0.0.1:8000 (default: http://127.0.0.1:8188)
 - **ComfyUI Image Input Folder**: Set the path to your ComfyUI input folder for image uploads
 
 Settings are saved automatically and persist between sessions.
@@ -84,6 +84,7 @@ Settings are saved automatically and persist between sessions.
    - Extract definitions, compressed meta, or model index
 
 2. **Prepare Workflow**
+   - Export ComfyUI workflow
    - Go to Bridge Flow tab
    - Convert JSON → BridgeZip (or work with existing BridgeZip)
 
@@ -146,7 +147,6 @@ Comfy_Bridge/
 ├── LICENSE          # Apache 2.0 License
 ├── README.md        # This file
 ├── requirements.txt # Python dependencies
-├── .gitignore       # Git ignore rules
 ├── START.bat        # Windows launcher
 ├── engine/          # BridgeZip compression engine
 ├── logic/           # Business logic (filtering, extraction)
@@ -181,6 +181,4 @@ This is a personal project. For issues or suggestions, please contact the mainta
 
 ## Version History
 
-- **1.2.1** - Professional release with hybrid system (1 AI agent + 2 Python components) and BridgeZip protocolFixed link prefix normalization bug in apply_modifications (handles LL prefix issue)
-- **1.0.0** - Initial professional release with 3 AI agents and BridgeZip protocol
-
+- **1.2.1** - Professional release with hybrid system (1 AI agent + 2 Python components)

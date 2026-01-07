@@ -25,9 +25,7 @@ DOC_WORKFLOW = """BRIDGE FLOW — WORKFLOW COMPRESSION
 
 PURPOSE
 
-This tab provides conversion and inspection tools for workflows in the hybrid system (1 external AI agent + 2 deterministic Python components).
-
-It converts between standard ComfyUI JSON and BridgeZip format, enabling efficient workflow exchange with Bridge Planner, Bridge Compiler, and Bridge Execute.
+This tab provides conversion and inspection tools for workflows. It converts between standard ComfyUI JSON and BridgeZip format, enabling compression and inflation of workflows so they can be exchanged across the Comfy-Bridge system. 
 
 ROLE IN HYBRID SYSTEM
 
@@ -69,8 +67,8 @@ HOW TO USE
 1. COMPRESS (JSON → BridgeZip):
    - Paste your standard ComfyUI JSON on the LEFT panel
    - Click "COMPRESS (JSON ➔ BridgeZip)"
-   - Copy the dense BridgeZip text from the RIGHT panel
-   - Use this in Bridge Planner, Bridge Compiler, or Bridge Execute (much smaller, token-efficient)
+   - Copy/ Save the BridgeZip text from the RIGHT panel
+   - Use this in Bridge Planner, Bridge Context, Bridge Compiler, or Bridge Execute (much smaller, token-efficient)
 
 2. INFLATE (BridgeZip → JSON):
    - Paste the BridgeZip text from Bridge Execute (or any source) into the RIGHT panel
@@ -84,13 +82,14 @@ HOW TO USE
 
 TYPICAL WORKFLOW
 
-1. Extract node definitions in Bridge Context
+1. Connect to ComfyUI and export workflow 
 2. Convert workflow to BridgeZip (this tab)
 3. Plan modifications in Bridge Planner
-4. Compile plan in Bridge Compiler
-5. Execute changes in Bridge Execute
-6. Inflate result back to JSON (this tab)
-7. Test workflow in ComfyUI
+4. Extract node definitions in Bridge Context for Bridge Planner
+5. Compile plan in Bridge Compiler
+6. Execute changes in Bridge Execute
+7. Inflate result back to JSON (this tab)
+8. Test workflow in ComfyUI
 
 COMMON ISSUES
 

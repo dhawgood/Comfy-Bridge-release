@@ -41,14 +41,14 @@ call :check_python "py -3.10"
 if !errorlevel!==0 ( set FOUND_CMD=py -3.10 & goto :found )
 
 REM --- FAILURE ---
-echo.
+    echo.
 echo [ERROR] No compatible Python version found (3.10 - 3.13).
-echo.
+    echo.
 echo Please install Python 3.12 from python.org.
 echo IMPORTANT: Check the box "Add Python to PATH" during installation.
-echo.
-pause
-exit /b 1
+    echo.
+    pause
+    exit /b 1
 
 REM --- SUCCESS ---
 :found

@@ -28,13 +28,9 @@ DOC_GENERAL = f"""COMFY BRIDGE v{__version__} — GENERAL HELP
 
 WHY COMFY BRIDGE EXISTS
 -----------------------
-ComfyUI workflows are large, repetitive JSON documents that quickly overwhelm AI context windows.
+ComfyUI workflows are large, repetitive JSON documents that quickly overwhelm AI context windows. Node geometry, widget arrays, and metadata create massive token footprints, making AI collaboration slow, expensive, and unreliable. Comfy Bridge solves this.
 
-Node geometry, widget arrays, and metadata create massive token footprints, making AI collaboration slow, expensive, and unreliable.
-
-Comfy Bridge solves this.
-
-It introduces BridgeZip — a compressed, logic-preserving workflow format that significantly reduces size, eliminates UI noise, and enables precise, deterministic collaboration using a hybrid system (1 external AI agent + 2 deterministic Python components).
+At its core is Bridge Planner, a custom GPT responsible for reasoning about changes and translating creative intent into explicit, deterministic, compiler-ready plans. It relies on BridgeZip — a compressed, logic-preserving workflow format that significantly reduces JSON size, eliminates UI noise, and enables precise, deterministic collaboration using this hybrid system.
 
 The application provides the tooling, extraction utilities, and hybrid system orchestration needed to safely design, modify, and execute complex ComfyUI workflows with AI.
 
@@ -70,6 +66,7 @@ QUICK START
    - Extract definitions, compressed meta, or model index
 
 2. Prepare Workflow
+   - Export ComfyUI workflow
    - Convert JSON → BridgeZip (Bridge Flow)
    - Or work directly with existing BridgeZip
 
@@ -96,7 +93,7 @@ CONFIGURATION
 -------------
 Before using Live API mode, configure your ComfyUI connection:
 - Click the "⚙️ Settings" button in the header
-- Set ComfyUI URL/Port (default: http://127.0.0.1:8188)
+- Set ComfyUI URL/Port (default: http://127.0.0.1:8188 but http://127.0.0.1:8000 for ComfyUI desktop version)
 - Optionally set ComfyUI Image Input Folder path
 - Click "Test" to verify connection
 - Click "Save" to apply settings
@@ -367,13 +364,22 @@ class ComfyBridgeApp(ctk.CTk):
         """Display About dialog with version and copyright information."""
         about_text = f"""Comfy Bridge v{__version__}
 
-A professional tool for compressing, analyzing, and modifying ComfyUI workflows using AI agents.
+Comfy-Bridge sits between the user, ComfyUI, and large language models, enabling workflows to be inspected, compressed, edited, transformed, and expanded without breaking. It connects directly to a running ComfyUI instance, pulls live workflow data, and extracts only the structural information an LLM actually needs.
 
-This application introduces BridgeZip—a compressed, logic-preserving workflow format that significantly reduces size and enables precise collaboration with multiple LLMs.
+That reduced, LLM-friendly representation is fed into Bridge Planner — a custom GPT responsible for reasoning about changes and translating creative intent into explicit, deterministic, compiler-ready plans. At its core, Bridge Planner asks a single question: given the current workflow state and the user's intent, can this be expressed as a valid, deterministic set of structural operations?
+
+The user becomes the intermediary in this process, using the app to filter and shape workflow data before engaging with the model. Proposed changes are reasoned through, formalised, and then applied back to a workflow that can immediately run again. Making that loop reliable requires a clear separation of responsibilities, which is where Bridge Compiler and Bridge Execute come in: one to validate and formalise intended changes, and the other to apply those compiled instructions safely to a live ComfyUI workflow.
 
 The Hybrid System:
+
+• Bridge Context: Data Filtering and extraction
+
 • Bridge Planner: High-level reasoning and design (ChatGPT)
+
+• Bridge Flow: Data compression
+
 • Bridge Compiler: Validation and translation
+
 • Bridge Execute: Deterministic execution
 
 For more information, see the Help documentation.

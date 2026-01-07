@@ -18,6 +18,8 @@ if exist "venv\Scripts\python.exe" (
         if exist "venv" (
             ren venv venv_old 2>nul
         )
+        REM --- FIX 1: Invalidate cache if venv is broken ---
+        del .deps_installed 2>nul
         goto :create_venv
     )
     goto :install_deps
@@ -26,6 +28,9 @@ if exist "venv\Scripts\python.exe" (
 :create_venv
 REM 2. Create new venv using the SMART detected python
 echo Creating virtual environment using: %SYS_PYTHON%
+
+REM --- FIX 2: Invalidate cache before creating new venv ---
+del .deps_installed 2>nul
 
 REM --- CRITICAL FIX: Use the passed command, not hardcoded 'python' ---
 %SYS_PYTHON% -m venv venv
@@ -54,12 +59,12 @@ if exist ".deps_installed" (
 ) else (
     echo Installing dependencies...
     python -m pip install --upgrade pip --quiet --disable-pip-version-check 2>nul
-    python -m pip install -r requirements.txt --quiet
+python -m pip install -r requirements.txt --quiet
     
-    if errorlevel 1 (
-        echo [ERROR] Failed to install dependencies!
-        pause
-        exit /b 1
+if errorlevel 1 (
+    echo [ERROR] Failed to install dependencies!
+    pause
+    exit /b 1
     )
     REM Create marker file so we don't check again next time
     echo done > .deps_installed
