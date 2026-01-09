@@ -187,7 +187,7 @@ limitations under the License.
 
 ## Contributing
 
-This is a personal project. For issues or suggestions, please contact the maintainer.
+This is a personal project created to explore workflow management in more depth. For issues, ideas, or suggestions, please contact the maintainer.
 
 ## Version History
 
