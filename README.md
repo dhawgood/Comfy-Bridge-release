@@ -147,6 +147,8 @@ BridgeZip is a compressed workflow format that:
 - Significantly reduces token footprint
 - Enables efficient AI-based workflow modification
 
+The BridgeZip format is independently implemented, with conceptual inspiration drawn from early community tools exploring LLM-friendly ComfyUI compression.
+
 ## Project Structure
 
 ```
