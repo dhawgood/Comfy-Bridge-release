@@ -15,6 +15,14 @@
 
 ---
 
+## Demo Video
+
+[![Comfy Bridge Demo](https://vumbnail.com/1152648016.jpg)](https://vimeo.com/1152648016)
+
+*A brief walkthrough showing how Comfy Bridge inspects, plans, and applies changes to ComfyUI workflows using LLMs.*
+
+---
+
 ## Version 1.2.1
 
 A professional tool for compressing, analyzing, and modifying ComfyUI workflows using AI agents. Comfy Bridge introduces Bridge Planner, a custom GPT responsible for reasoning about changes and translating creative intent into explicit, deterministic, compiler-ready plans. At its core, Bridge Planner asks a single question: given the current workflow state and the user's intent, can this be expressed as a valid, deterministic set of structural operations?
